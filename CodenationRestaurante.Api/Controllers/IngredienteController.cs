@@ -16,40 +16,56 @@ namespace CodenationRestaurante.Api.Controllers
         List<Ingrediente> lst;
         public IngredienteController() {
             lst = new List<Ingrediente>();
-            lst.Add( new Ingrediente() {Id=1, Descricao = "Chocolate em barra de 1kg", Nome = "Chocolate", Validade = new DateTime(2020,12,02)});
-            lst.Add(new Ingrediente() { Id = 1, Descricao = "Alho triturado em pote sem sal", Nome = "Alho", Validade = new DateTime(2020, 12, 02) });
-            lst.Add(new Ingrediente() { Id = 1, Descricao = "Arroz branco de 5 kg", Nome = "Chocolate", Validade = new DateTime(2020, 12, 02) });
+            lst.Add( new Ingrediente() {Id=1, Descricao = "Chocolate em barra de 1kg", Nome = "Chocolate", Validade = new DateTime(2020,12,20)});
+            lst.Add(new Ingrediente() { Id = 2, Descricao = "Alho triturado em pote sem sal", Nome = "Alho", Validade = new DateTime(2020, 12, 20) });
+            lst.Add(new Ingrediente() { Id = 3, Descricao = "Arroz branco de 5 kg", Nome = "Arroz", Validade = new DateTime(2020, 12, 20) });
+            lst.Add(new Ingrediente() { Id = 4, Descricao = "Feijao carioca de 1 kg", Nome = "Feijao", Validade = new DateTime(2020, 12, 20) });
+            lst.Add(new Ingrediente() { Id = 5, Descricao = "Farinha de mandioca", Nome = "Farinha de mandioca", Validade = new DateTime(2020, 12, 20) });
         }
-        // GET: api/<IngredienteController>
+        // GET: api/<Ingrediente>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Ingrediente> Get()
         {
-            return new string[] { "value1", "value2" };
+            return lst;
         }
 
         // GET api/<IngredienteController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Ingrediente Get(int id)
         {
-            return "value";
+            return lst.FirstOrDefault(x => x.Id == id);
         }
 
         // POST api/<IngredienteController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IEnumerable<Ingrediente> Post([FromBody] Ingrediente ingrediente)
         {
+            lst.Add(ingrediente);
+            return lst;
         }
 
         // PUT api/<IngredienteController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IEnumerable<Ingrediente> Put(int id, [FromBody] Ingrediente ingrediente)
         {
+            int index = lst.FindIndex(x => x.Id == id);
+            if (index > -1) {
+                lst[index].Descricao = ingrediente.Descricao;
+                lst[index].Nome = ingrediente.Nome;
+                lst[index].Validade = ingrediente.Validade;
+            }
+
+            return lst;
         }
 
         // DELETE api/<IngredienteController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IEnumerable<Ingrediente> Delete(int id)
         {
+            var ingrediente = lst.FirstOrDefault(x => x.Id == id);
+            if (ingrediente != null) lst.Remove(ingrediente);
+
+            return lst;
         }
     }
 }
