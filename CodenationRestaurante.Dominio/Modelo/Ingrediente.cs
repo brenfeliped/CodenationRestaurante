@@ -11,5 +11,7 @@ namespace CodenationRestaurante.Dominio.Modelo
         public string Descricao { get; set; }
 
         public DateTime Validade { get; set; }
+
+        public List<PratosIngredientes> PratosIngredientes { set; get; }
     }
 }

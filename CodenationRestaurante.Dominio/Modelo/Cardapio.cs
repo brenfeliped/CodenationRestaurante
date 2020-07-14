@@ -12,5 +12,8 @@ namespace CodenationRestaurante.Dominio.Modelo
 
         public string Descricao { get; set; }
 
+        public List<AgendaCardapio> AgendaCardapio { get; set; }
+        public List<Prato> Prato { get; set; }
+
     }
 }

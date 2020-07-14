@@ -12,5 +12,7 @@ namespace CodenationRestaurante.Dominio.Modelo
         public decimal Preco { get; set; }
         public int IdTipoPrato { get; set; }
         public TipoPrato TipoPrato { get; set; }
+
+        public List<PratosIngredientes> PratosIngredientes { get; set; }
     }
 }
