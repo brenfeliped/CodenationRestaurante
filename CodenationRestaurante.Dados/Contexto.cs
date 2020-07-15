@@ -8,7 +8,7 @@ using RestauranteCodenation.Data.Map;
 
 namespace CodenationRestaurante.Dados
 {
-    class Contexto : DbContext
+    public class Contexto : DbContext
     {
         public DbSet<Cardapio> Cardapio { get; set; }
         public DbSet<Ingrediente> Ingrediente { get; set; }

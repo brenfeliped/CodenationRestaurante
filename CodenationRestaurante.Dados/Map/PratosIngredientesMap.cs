@@ -7,7 +7,7 @@ using System.Text;
 
 namespace CodenationRestaurante.Dados.Map
 {
-    class PratosIngredientesMap : IEntityTypeConfiguration<PratosIngredientes>
+    public class PratosIngredientesMap : IEntityTypeConfiguration<PratosIngredientes>
     {
         public void Configure(EntityTypeBuilder<PratosIngredientes> builder)
         {
