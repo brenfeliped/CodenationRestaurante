@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CodenationRestaurante.Dominio.Modelo;
 using CodenationRestaurante.Dados;
+using CodenationRestaurante.Dados.Repositorio;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,66 +15,52 @@ namespace CodenationRestaurante.Api.Controllers
     [ApiController]
     public class PratoController : ControllerBase
     {
+        private PratoRepositorio _repo;
+
+        public PratoController()
+        {
+            _repo = new PratoRepositorio();
+        }
+
         // GET: api/<PratoController>
         [HttpGet]
         public IEnumerable<Prato> Get()
         {
-            using (var contexto = new Contexto()) {
-
-                return contexto.Prato.ToList();
-            }
+            return _repo.RetornarTodos();
         }
 
         // GET api/<PratoController>/5
         [HttpGet("{id}")]
         public Prato Get(int id)
         {
-            using (var contexto = new Contexto())
-            {
-
-                return contexto.Prato.FirstOrDefault(x => x.Id == id);
-            }
+            
+            return _repo.BuscaPorId(id);
         }
 
         // POST api/<PratoController>
         [HttpPost]
         public IEnumerable<Prato> Post([FromBody] Prato prato)
         {
-            using (var contexto = new Contexto()) {
-
-                contexto.Prato.Add(prato);
-                contexto.SaveChanges();
-
-                return contexto.Prato.ToList();
-            }
+            _repo.Incluir(prato);
+            return _repo.RetornarTodos();
         }
 
         // PUT api/<PratoController>/5
         [HttpPut("{id}")]
         public IEnumerable<Prato> Put([FromBody] Prato prato)
         {
-            using (var contexto = new Contexto())
-            {
-                contexto.Prato.Update(prato);
-                contexto.SaveChanges();
+            _repo.Alterar(prato);
 
-                return contexto.Prato.ToList();
-            }
+            return _repo.RetornarTodos();
         }
 
         // DELETE api/<PratoController>/5
         [HttpDelete("{id}")]
         public IEnumerable<Prato> Delete(int id)
         {
-            using (var contexto = new Contexto())
-            {
+            _repo.Excluir(id);
 
-                var entity = contexto.Prato.FirstOrDefault(x => x.Id == id);
-                contexto.Prato.Remove(entity);
-                contexto.SaveChanges();
-
-                return contexto.Prato.ToList();
-            }
+            return _repo.RetornarTodos();
         }
     }
 }
